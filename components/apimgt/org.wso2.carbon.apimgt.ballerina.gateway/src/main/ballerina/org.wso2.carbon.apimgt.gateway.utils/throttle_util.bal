@@ -18,6 +18,7 @@ import ballerina/http;
 import org.wso2.carbon.apimgt.gateway.constants as constants;
 import ballerina/time;
 import org.wso2.carbon.apimgt.gateway.dto as dto;
+import org.wso2.carbon.apimgt.gateway.throttling as throttling;
 import ballerina/io;
 
 map blockConditions;
@@ -53,7 +54,12 @@ public function isThrottled(string key) returns (boolean) {
 }
 public function getClientIp(http:Request request) returns (string) {
     string clientIp;
-    string header = request.getHeader(constants:X_FORWARD_FOR_HEADER);
+    string header = "";
+    try {
+        header = request.getHeader(constants:X_FORWARD_FOR_HEADER);
+    }catch(error e){
+        log:printError("Error occurred when getting X_FORWARD_FOR_HEADER: ");
+    }
     clientIp = header;
     int idx = header.indexOf(",");
     if (idx > -1) {
@@ -67,6 +73,7 @@ public function publishNonThrottleEvent(dto:RequestStream request) {
 }
 function initializeThrottleSubscription() {
     globalThrottleStream.subscribe(onReceiveThrottleEvent);
+    requestStream.subscribe(throttling:startToPublish);
 }
 public function onReceiveThrottleEvent(dto:GlobalThrottleStream throttleEvent) {
 

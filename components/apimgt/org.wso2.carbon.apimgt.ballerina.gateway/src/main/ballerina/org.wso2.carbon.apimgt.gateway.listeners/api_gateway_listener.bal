@@ -12,6 +12,7 @@ import org.wso2.carbon.apimgt.gateway.handlers as handler;
 import org.wso2.carbon.apimgt.gateway.filters as filter;
 import org.wso2.carbon.apimgt.gateway.constants as constants;
 import org.wso2.carbon.apimgt.gateway.utils as utils;
+import org.wso2.carbon.apimgt.gateway.throttling as throttling;
 
 
 @Description {value:"Representation of an API gateway listener"}
@@ -127,6 +128,7 @@ function createAuthFiltersForSecureListener (EndpointConfiguration config) retur
     handler:OAuthnHandler oauthnHandler = new;
     filter:OAuthnFilter authnFilter = new(oauthnHandler, authnHandlerChain);
 
+    filter:ThrottleFilter throttleFilter = new();
     //filter:OAuthzFilter authzFilter = new;
 
     // use the ballerina in built scope filter
@@ -138,6 +140,7 @@ function createAuthFiltersForSecureListener (EndpointConfiguration config) retur
 
     authFilters[0] = <http:Filter> authnFilter;
     authFilters[1] = <http:Filter> authzFilter;
+    authFilters[2] = <http:Filter> throttleFilter;
     return authFilters;
 }
 
