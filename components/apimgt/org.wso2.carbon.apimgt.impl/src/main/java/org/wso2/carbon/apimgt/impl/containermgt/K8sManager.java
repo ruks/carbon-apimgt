@@ -95,6 +95,7 @@ public class K8sManager implements ContainerManager {
                     oauthSecurityCRName, basicAuthSecurityCRName, false);
 
             applyAPICustomResourceDefinition(openShiftClient, configmapNames, replicas, apiIdentifier, true);
+
             log.info("Successfully deployed the [API] " + apiIdentifier.getApiName() + " in Kubernetes");
 
 
@@ -250,7 +251,11 @@ public class K8sManager implements ContainerManager {
     /**
      * Deploys the API Custom resource kind in kubernetes
      * @param client , Openshift client
+<<<<<<< HEAD
      * @param configmapNames , Name of the configmap
+=======
+     * @param configmapName , Name of the configmap
+>>>>>>> Private Jet Mode classes
      * @param replicas , number of replicas
      * @param apiIdentifier , APIIdentifier
      * @param override , Checks whether the API CR needs to be overrode or not
