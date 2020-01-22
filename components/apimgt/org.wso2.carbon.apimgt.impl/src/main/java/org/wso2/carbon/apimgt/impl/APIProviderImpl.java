@@ -4055,7 +4055,6 @@ class APIProviderImpl extends AbstractAPIManager implements APIProvider {
                                 containerManager.deleteAPI(identifier, allClusters.get(clusterId));
                             }
                         }
-
                 }
             }
             if (log.isDebugEnabled()) {
