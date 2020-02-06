@@ -9910,8 +9910,6 @@ definitions:
       applicationName: 'DefaultApplication'
       requestConunt: '12'
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   #-----------------------------------------------------
   # The Category resource
   #-----------------------------------------------------
@@ -9963,7 +9961,6 @@ definitions:
         items:
           $ref: '#/definitions/DeploymentClusterInfo'
 
-
   #-----------------------------------------------------
   # The DeploymentClusterInfo resource
   #-----------------------------------------------------
@@ -9973,6 +9970,7 @@ definitions:
       - clusterName
       - masterURL
       - namespace
+      - ingressURL
     properties:
       clusterName:
         type: string
