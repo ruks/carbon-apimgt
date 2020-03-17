@@ -271,8 +271,13 @@ public class APIExecutor implements Execution {
 //            List<String> clusters = new ArrayList<String>();
             //getting clusters to publish API from the publisher UI
 //            clusters.add("gke_apim-kube_us-central1-a_privatejet-mode-test");
+<<<<<<< HEAD
 //            clusters.add("docker-desktop");
 //            clusters.add("minikube");
+=======
+       //     clusters.add("docker-desktop");
+             clusters.add("minikube"); /* adding my local cluster */
+>>>>>>> updated service discovery
             if (publishInPrivateJet) {
                 log.info("API executor publish in privatejet mode ////////////////////////");
                 apiProvider.publishInPrivateJet(api, api.getId());

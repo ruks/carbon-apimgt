@@ -96,6 +96,7 @@ public class APIManagerConfiguration {
     private JSONArray applicationAttributes = new JSONArray();
     private JSONArray monetizationAttributes = new JSONArray();
     private CacheInvalidationConfiguration cacheInvalidationConfiguration;
+    private JSONArray serviceDiscovery = new JSONArray();
 
     private RecommendationEnvironment recommendationEnvironment;
 
@@ -487,6 +488,29 @@ public class APIManagerConfiguration {
                 setGlobalCacheInvalidationConfiguration(element);
             } else if (APIConstants.KeyManager.KEY_MANAGER_CONFIGURATIONS.equals(localName)) {
                 setKeyManagerConfigurationsDto(element);
+            }else if (APIConstants.ServiceDiscoveryAttributes.SERVICE_DISCOVERY_CONFIGS.equals(localName)) {
+                Iterator iterator = element.getChildrenWithLocalName("ServiceDiscovery");
+                while (iterator.hasNext()) {
+                    OMElement omElement = (OMElement) iterator.next();
+                    Iterator attributes = omElement.getChildElements();
+                    JSONObject jsonObject = new JSONObject();
+                    while (attributes.hasNext()) {
+                        OMElement attribute = (OMElement) attributes.next();
+                        if (attribute.getLocalName().equals(APIConstants.ServiceDiscoveryAttributes.SERVICE_DISCOVERY_DISPLAYNAME)) {
+                            jsonObject.put(APIConstants.ServiceDiscoveryAttributes.SERVICE_DISCOVERY_DISPLAYNAME, attribute.getText());
+                        } else if (attribute.getLocalName().equals(APIConstants.ServiceDiscoveryAttributes.SERVICE_DISCOVERY_CLASS)) {
+                            jsonObject.put(APIConstants.ServiceDiscoveryAttributes.SERVICE_DISCOVERY_CLASS, attribute.getText());
+                        }
+                        else if (attribute.getLocalName().equals(APIConstants.ServiceDiscoveryAttributes.URL)) {
+                            jsonObject.put(APIConstants.ServiceDiscoveryAttributes.URL, attribute.getText());
+                        }
+                        else if (attribute.getLocalName().equals(APIConstants.ServiceDiscoveryAttributes.SERVICE_DISCOVERY_TYPE)) {
+                            jsonObject.put(APIConstants.ServiceDiscoveryAttributes.SERVICE_DISCOVERY_TYPE, attribute.getText());
+                        }
+
+                    }
+                    serviceDiscovery.add(jsonObject);
+                }
             }
             readChildElements(element, nameStack);
             nameStack.pop();
@@ -568,6 +592,9 @@ public class APIManagerConfiguration {
         return cacheInvalidationConfiguration;
     }
 
+    public  JSONArray getServiceDiscoveryConf(){
+        return  serviceDiscovery;
+    }
     public JSONArray getApplicationAttributes() {
 
         return applicationAttributes;

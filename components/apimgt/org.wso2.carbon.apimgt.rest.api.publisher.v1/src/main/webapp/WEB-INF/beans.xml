@@ -37,7 +37,15 @@
             <bean class="org.wso2.carbon.apimgt.rest.api.publisher.v1.LabelsApi"/>
             <bean class="org.wso2.carbon.apimgt.rest.api.publisher.v1.ScopesApi"/>
             <bean class="org.wso2.carbon.apimgt.rest.api.publisher.v1.ApiCategoriesApi"/>
+<<<<<<< HEAD
             <bean class="org.wso2.carbon.apimgt.rest.api.publisher.v1.DeploymentsApi"/>
+=======
+<!--            my edit
+
+-->
+            <bean class="org.wso2.carbon.apimgt.rest.api.publisher.v1.ServiceDiscoveryApi"/>
+
+>>>>>>> updated service discovery
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
