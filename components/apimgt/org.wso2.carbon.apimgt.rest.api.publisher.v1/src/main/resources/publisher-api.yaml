@@ -95,15 +95,11 @@ securityDefinitions:
       apim:ep_certificates_add: Add backend endpoint certificates
       apim:ep_certificates_update: Update and delete backend endpoint certificates
       apim:publisher_settings: Retrieve store settings
-<<<<<<< HEAD
       apim:pub_alert_manage: Get/ subscribe/ configure publisher alerts
       apim:shared_scope_manage: Manage shared scopes
-=======
-      apim:pub_alert_manage: Get/ subscribe/ configure publisher alerts.
       #------------------------------------------------------------------------------------------------------------myedit
       apim:serviceEndpoints_view: View available services.
       #------------------------------------------------------------------------------------------------------------
->>>>>>> updated service discovery
 
 security:
   - OAuth2Security:
@@ -6726,6 +6722,8 @@ paths:
         Using this operation, you can retrieve complete list of available services in the clusters.
       parameters:
         - $ref: '#/parameters/type'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/offset'
       tags:
         - Service Discovery
       responses:
@@ -6749,7 +6747,7 @@ paths:
                 Used by caches, or in conditional requests (Will be supported in future).
               type: string
           schema:
-            $ref: '#/definitions/ServiceDiscoveriesInfo'
+            $ref: '#/definitions/ServiceDiscoveriesInfoList'
         304:
           description: |
             Not Modified.
@@ -10205,7 +10203,6 @@ definitions:
       namespace:
         type: string
         example: "def"
-<<<<<<< HEAD
       ingressURL:
         type: string
         example: "https://api.com"
@@ -10308,16 +10305,13 @@ definitions:
       creationTimestamp:
         type: string
         example: 2020-05-12T06:12:00Z
-=======
-
-
 
   #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   #------------------------------------------------------
   # service_discoveriesResponse definition.
   #------------------------------------------------------
   ServiceDiscoveriesInfo:
-    title: List of services
+    title: details of the service
      #Kubernetes
     # services:
     properties:
@@ -10334,7 +10328,33 @@ definitions:
         description: properties of the available services
         example:
   #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
->>>>>>> updated service discovery
+  #-----------------------------------------------------
+  # service_discoveriesResponse list definition.
+  #-----------------------------------------------------
+  ServiceDiscoveriesInfoList:
+    title: service list
+    properties:
+      count:
+        type: integer
+        description: |
+          Number of services returned.
+        example: 1
+      type:
+        type: string
+        description: |
+          Type of the service discovery system
+        example: Kubernetes
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/ServiceDiscoveriesInfo'
+      pagination:
+        $ref: '#/definitions/Pagination'
+
+
+
+
+
 #-----------------------------------------------------
 # END-OF-FILE
 #-----------------------------------------------------
