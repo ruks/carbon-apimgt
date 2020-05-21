@@ -21,6 +21,7 @@ package org.wso2.carbon.apimgt.impl.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.impl.builder.StAXOMBuilder;
 import org.apache.axiom.om.util.AXIOMUtil;
@@ -107,6 +108,7 @@ import org.wso2.carbon.apimgt.api.model.ResourceFile;
 import org.wso2.carbon.apimgt.api.model.Scope;
 import org.wso2.carbon.apimgt.api.model.Tier;
 import org.wso2.carbon.apimgt.api.model.URITemplate;
+import org.wso2.carbon.apimgt.api.model.*;
 import org.wso2.carbon.apimgt.api.model.policy.APIPolicy;
 import org.wso2.carbon.apimgt.api.model.policy.ApplicationPolicy;
 import org.wso2.carbon.apimgt.api.model.policy.BandwidthLimit;
@@ -228,6 +230,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -749,9 +752,13 @@ public final class APIUtil {
             api.setMonetizationStatus(Boolean.parseBoolean(artifact.getAttribute
                     (APIConstants.Monetization.API_MONETIZATION_STATUS)));
             String monetizationInfo = artifact.getAttribute(APIConstants.Monetization.API_MONETIZATION_PROPERTIES);
+
+
             //set selected clusters which API needs to be deployed
             String deployments = artifact.getAttribute(APIConstants.API_OVERVIEW_DEPLOYMENTS);
-            api.setDeployments(extractDeploymentsForAPI(deployments));
+            api.setDeploymentEnvironments(extractDeploymentsForAPI(deployments));
+
+
             if (StringUtils.isNotBlank(monetizationInfo)) {
                 JSONParser parser = new JSONParser();
                 JSONObject jsonObj = (JSONObject) parser.parse(monetizationInfo);
@@ -998,7 +1005,7 @@ public final class APIUtil {
             api.setAuthorizationHeader(artifact.getAttribute(APIConstants.API_OVERVIEW_AUTHORIZATION_HEADER));
             api.setApiSecurity(artifact.getAttribute(APIConstants.API_OVERVIEW_API_SECURITY));
             String deployments = artifact.getAttribute(APIConstants.API_OVERVIEW_DEPLOYMENTS);
-            api.setDeployments(extractDeploymentsForAPI(deployments));
+            api.setDeploymentEnvironments(extractDeploymentsForAPI(deployments));
 
             //get endpoint config string from artifact, parse it as a json and set the environment list configured with
             //non empty URLs to API object
@@ -1351,8 +1358,11 @@ public final class APIUtil {
                 artifact.setAttribute(APIConstants.API_OVERVIEW_TIER, "");
             }
 
-            //set deployments selected
-            artifact.setAttribute(APIConstants.API_OVERVIEW_DEPLOYMENTS, writeDeploymentsToArtifact(api));
+//          set deployments selected
+            Set<DeploymentEnvironments> deploymentEnvironments = api.getDeploymentEnvironments();
+            String json = new Gson().toJson(deploymentEnvironments);
+            log.info("json string after converting list with gson " + json);
+            artifact.setAttribute(APIConstants.API_OVERVIEW_DEPLOYMENTS, json);
 
         } catch (GovernanceException e) {
             String msg = "Failed to create API for : " + api.getId().getApiName();
@@ -6668,20 +6678,26 @@ public final class APIUtil {
         return environmentStringSet;
     }
 
-    public static Set<String> extractDeploymentsForAPI(String deployments) {
-        Set<String> deploynmentStringSet = null;
+    public static Set<DeploymentEnvironments> extractDeploymentsForAPI(String deployments) {
 
-        //handle not to publish to any of the gateways
-        if (APIConstants.API_GATEWAY_NONE.equals(deployments)) {
-            deploynmentStringSet = new HashSet<String>();
-        }
+        log.info("APIUtil class deployment string ===================== " + deployments);
+//        Set<DeploymentEnvironments> deploymentEnvironments =
+//                (Set<DeploymentEnvironments>) Arrays.asList(new Gson().fromJson(deployments,DeploymentEnvironments[].class));
+
+
+        Type deploymentEnvironmentsSetType = new TypeToken<HashSet<DeploymentEnvironments>>(){}.getType();
+
+        HashSet<DeploymentEnvironments> deploymentEnvironmentsSet = new Gson().fromJson(deployments, deploymentEnvironmentsSetType);
         //handle to set published gateways nto api object
-        else if (!"".equals(deployments)) {
-            String[] publishDeploymentArray = deployments.split(",");
-            deploynmentStringSet = new HashSet<String>(Arrays.asList(publishDeploymentArray));
-            deploynmentStringSet.remove(APIConstants.API_GATEWAY_NONE);
-        }
-        return deploynmentStringSet;
+//        if (!"".equals(deployments)) {
+//            String[] publishDeploymentArray = deployments.split(",");
+//           // deploynmentStringSet = new HashSet<String>(Arrays.asList(publishDeploymentArray));
+//            //deploynmentStringSet.remove(APIConstants.API_GATEWAY_NONE);
+//            DeploymentEnvironments deploymentEnvironment = new DeploymentEnvironments();
+//            deploymentEnvironment.setType("test");
+//            deploymentEnvironments.add(deploymentEnvironment);
+//        }
+        return deploymentEnvironmentsSet;
     }
 
     /**
@@ -6737,24 +6753,24 @@ public final class APIUtil {
      *
      * @param api API object with the attributes value
      */
-    public static String writeDeploymentsToArtifact(API api) {
-        StringBuilder publishedDeployments = new StringBuilder();
-        Set<String> apiDeployments = api.getDeployments();
-        if (apiDeployments != null) {
-            for (String deploymentName : apiDeployments) {
-                publishedDeployments.append(deploymentName).append(',');
-            }
-
-            if (apiDeployments.isEmpty()) {
-                publishedDeployments.append("none,");
-            }
-
-            if (!publishedDeployments.toString().isEmpty()) {
-                publishedDeployments.deleteCharAt(publishedDeployments.length() - 1);
-            }
-        }
-        return publishedDeployments.toString();
-    }
+//    public static String writeDeploymentsToArtifact(API api) {
+//        StringBuilder publishedDeployments = new StringBuilder();
+//        Set<String> apiDeployments = api.getDeployments();
+//        if (apiDeployments != null) {
+//            for (String deploymentName : apiDeployments) {
+//                publishedDeployments.append(deploymentName).append(',');
+//            }
+//
+//            if (apiDeployments.isEmpty()) {
+//                publishedDeployments.append("none,");
+//            }
+//
+//            if (!publishedDeployments.toString().isEmpty()) {
+//                publishedDeployments.deleteCharAt(publishedDeployments.length() - 1);
+//            }
+//        }
+//        return publishedDeployments.toString();
+//    }
     /**
      * This method used to get the currently published gateway environments of an API .
      *
