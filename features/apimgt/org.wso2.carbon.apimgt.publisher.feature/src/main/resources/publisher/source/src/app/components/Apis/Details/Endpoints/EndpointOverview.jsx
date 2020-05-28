@@ -912,6 +912,7 @@ function EndpointOverview(props) {
                             </Grid>
                         )
                 }
+
             </Grid>
             <Dialog open={advanceConfigOptions.open}>
                 <DialogTitle>

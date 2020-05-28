@@ -479,6 +479,38 @@
                         <artifactId>surefire-junit47</artifactId>
                         <version>${maven.surefire.plugin.version}</version>
                     </dependency>
+<!--                    <dependency>-->
+<!--                        <groupId>io.fabric8</groupId>-->
+<!--                        <artifactId>kubernetes-server-mock</artifactId>-->
+<!--                        <version>${kubernetes-server-mock.version}</version>-->
+<!--                        <scope>test</scope>-->
+
+<!--                    </dependency>-->
+                    <dependency>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>kubernetes-server-mock</artifactId>
+                        <version>4.6.4</version>
+<!--                        <scope>runtime</scope>-->
+                    </dependency>
+                    <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/mockwebserver -->
+<!--                    <dependency>-->
+<!--                        <groupId>com.squareup.okhttp3</groupId>-->
+<!--                        <artifactId>mockwebserver</artifactId>-->
+<!--                        <version>4.6.0</version>-->
+<!--&lt;!&ndash;                        <scope>test</scope>&ndash;&gt;-->
+<!--                    </dependency>-->
+                    <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+                    <dependency>
+                        <groupId>com.squareup.okhttp3</groupId>
+                        <artifactId>okhttp</artifactId>
+                        <version>3.12.1</version>
+                    </dependency>
+
+<!--                    <dependency>-->
+<!--                        <groupId>io.fabric8</groupId>-->
+<!--                        <artifactId>mockwebserver</artifactId>-->
+<!--                        <version>0.1.7</version>-->
+<!--                    </dependency>-->
                 </dependencies>
             </plugin>
             <plugin>
@@ -568,6 +600,8 @@
                             io.fabric8.kubernetes.api.*;version="${org.wso2.orbit.io.fabric8.kubernetes.version}",
                             io.fabric8.kubernetes.internal.*;version="${org.wso2.orbit.io.fabric8.kubernetes.version}",
                             io.fabric8.openshift.client.*;version="${org.wso2.orbit.io.fabric8.kubernetes.version}",
+                            io.fabric8.kubernetes.client.server.mock.KubernetesServer*;version="4.6.4",
+<!--                            io.fabric8.mockwebserver;version="0.1.7",-->
                             okio.*;version="${org.wso2.orbit.com.squareup.okio.version}",
                             org.apache.commons.compress.*;version="${org.wso2.orbit.org.apache.commons.compress.version}",
                             okhttp3.*;version="${org.wso2.orbit.com.squareup.okhttp.version}"
