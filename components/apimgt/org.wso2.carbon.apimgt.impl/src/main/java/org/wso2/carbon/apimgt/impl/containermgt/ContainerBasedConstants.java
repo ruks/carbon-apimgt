@@ -68,7 +68,7 @@ public final class ContainerBasedConstants {
     public static final String SERVICE_DISCOVERY = "ServiceDiscovery";
     public static final String SERVICE_DISCOVERY_TYPES = "ServiceDiscoveryTypes";
     public static final String IMPL_PARAMETERS = "ImplParameters";
-    public static final String  DISPLAY_NAME="DisplayName";
+//    public static final String  DISPLAY_NAME="DisplayName";
 
 
 
