@@ -1006,7 +1006,6 @@ public class API implements Serializable {
         return apiCategories;
     }
 
-<<<<<<< HEAD
     public List<String> getKeyManagers() {
 
         return keyManagers;
@@ -1016,12 +1015,9 @@ public class API implements Serializable {
 
         this.keyManagers = keyManagers;
     }
-    public Set<String> getDeployments() {
-        return deployments;
-=======
+
     public Set<DeploymentEnvironments> getDeploymentEnvironments() {
         return deploymentEnvironments;
->>>>>>> refactoring APIs and adding API to get pods health status
     }
 
     public void setDeploymentEnvironments(Set<DeploymentEnvironments> deploymentEnvironments) {

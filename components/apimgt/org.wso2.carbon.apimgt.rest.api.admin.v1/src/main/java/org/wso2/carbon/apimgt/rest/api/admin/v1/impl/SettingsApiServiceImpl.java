@@ -92,4 +92,5 @@ public class SettingsApiServiceImpl implements SettingsApiService {
         }
         return Response.ok().entity(scopeSettingsDTO).build();
     }
+
 }
