@@ -6707,7 +6707,7 @@ paths:
   /service-discovery/endpoints:
 
   #########################################################
-  # Retriving the list of available types
+  # Retrieving the list of available types
   #########################################################
     get:
       x-scope: apim:serviceEndpoints_view
@@ -6768,7 +6768,7 @@ paths:
   /service-discovery/endpoints/{type}:
 
     #########################################################
-    # Retriving the list of available services in the cluster
+    # Retrieving the list of available services in the cluster
     #########################################################
     get:
       x-scope: apim:serviceEndpoints_view
@@ -10409,7 +10409,7 @@ definitions:
 
 
   #-----------------------------------------------------
-  # service_discoveriesResponse list definition.
+  # service_discoveriesResponse type list definition.
   #-----------------------------------------------------
   ServiceDiscoverySystemTypeList:
     title: type list
@@ -10427,6 +10427,10 @@ definitions:
           Type of the service discovery system
         example: Kubernetes
 
+
+  #-----------------------------------------------------
+  # service_discoveriesResponse type  definition.
+  #-----------------------------------------------------
 
 
   TypeInfo:

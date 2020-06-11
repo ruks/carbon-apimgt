@@ -106,7 +106,7 @@ export default function CloudClusters(props) {
             <Typography variant='h4' gutterBottom align='left' className={classes.mainTitle}>
                 <FormattedMessage
                     id='Apis.Details.Environments.Environments.CloudClusters'
-                    defaultMessage={getDeployments.name}
+                    defaultMessage='Kubernetes'
                 />
             </Typography>
 

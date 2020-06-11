@@ -54,8 +54,11 @@ public final class ContainerBasedConstants {
     public static final String CLASS_NAME = "ClassName";
     public static final String CLIENT_KEY_PASSPHRASE = "javax.net.ssl.keyStorePassword";
 
-    //Service discovery constants
-    public static final String SERVICE ="Service"; // my edit
+
+    /**
+     * Service discovery constants
+     */
+    public static final String SERVICE ="Service";
     public static final String SYSTEM_TYPE ="Type";// service discovery system type.
     public static final String SERVICE_NAME ="";
     public static final String SERVICE_TYPE="";
@@ -68,16 +71,8 @@ public final class ContainerBasedConstants {
     public static final String SERVICE_DISCOVERY = "ServiceDiscovery";
     public static final String SERVICE_DISCOVERY_TYPES = "ServiceDiscoveryTypes";
     public static final String IMPL_PARAMETERS = "ImplParameters";
-//    public static final String  DISPLAY_NAME="DisplayName";
 
 
-
-
-
-
-
-
-    // Service discovery
     /**
      * Life Cycle Events
      */
